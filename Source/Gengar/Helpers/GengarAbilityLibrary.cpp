@@ -17,11 +17,11 @@ void UGengarAbilityLibrary::GetGameplayEffectContext(const FGameplayEffectContex
 }
 
 void UGengarAbilityLibrary::MakeEffectContextHandle(UAbilitySystemComponent* AbilitySystemComponent,
-                                                    const FInstancedStruct& Payload,
+                                                    const FInstancedStruct& Extra,
                                                     FGameplayEffectContextHandle& Handle)
 {
     Handle = AbilitySystemComponent->MakeEffectContext();
-    SetEffectContextHandleExtra(Handle, Payload);
+    SetEffectContextHandleExtra(Handle, Extra);
 }
 
 FInstancedStruct UGengarAbilityLibrary::TryGetEffectContextHandleExtra(const FGameplayEffectContextHandle& Handle)
@@ -39,12 +39,12 @@ FInstancedStruct UGengarAbilityLibrary::TryGetEffectContextHandleExtra(const FGa
 }
 
 FGameplayEffectContextHandle UGengarAbilityLibrary::SetEffectContextHandleExtra(FGameplayEffectContextHandle& Handle,
-    const FInstancedStruct& Payload)
+    const FInstancedStruct& Extra)
 {
     auto* Context = Handle.Get();
     if (auto* GengarContext = static_cast<FGengarGameplayEffectContext*>(Context))
     {
-        GengarContext->Extra = Payload;
+        GengarContext->Extra = Extra;
     }
     return Handle;
 }

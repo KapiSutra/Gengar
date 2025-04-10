@@ -23,5 +23,5 @@ class GENGAR_API IGengarAbilityAvatarInterface
     // Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
     UFUNCTION(BlueprintNativeEvent, Category="Gengar Ability")
-    USkeletalMeshComponent* AvatarAnimMeshComponent();
+    USkeletalMeshComponent* AvatarMeshComponent();
 };

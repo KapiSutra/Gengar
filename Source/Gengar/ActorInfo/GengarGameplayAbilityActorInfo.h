@@ -26,7 +26,7 @@ struct GENGAR_API FGengarGameplayAbilityActorInfo : public FGameplayAbilityActor
             )
         )
         {
-            SkeletalMeshComponent = IGengarAbilityAvatarInterface::Execute_AvatarAnimMeshComponent(AvatarActor.Get());
+            SkeletalMeshComponent = IGengarAbilityAvatarInterface::Execute_AvatarMeshComponent(AvatarActor.Get());
         }
     }
 
