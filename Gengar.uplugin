@@ -1,0 +1,30 @@
+﻿{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "Gengar",
+  "Description": "",
+  "Category": "Other",
+  "CreatedBy": "tarnishablec",
+  "CreatedByURL": "https://github.com/tarnishablec",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": true,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Modules": [
+    {
+      "Name": "Gengar",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "Plugins": [
+    {
+      "Name": "GameplayAbilities",
+      "Enabled": true,
+      "Optional": false
+    }
+  ]
+}
