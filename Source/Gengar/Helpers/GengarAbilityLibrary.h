@@ -32,8 +32,8 @@ class GENGAR_API UGengarAbilityLibrary : public UBlueprintFunctionLibrary
     static FInstancedStruct TryGetEffectContextHandleExtra(const FGameplayEffectContextHandle& Handle);
 
     UFUNCTION(BlueprintCallable, Category="Gengar Ability")
-    static FGameplayEffectContextHandle SetEffectContextHandleExtra(FGameplayEffectContextHandle& Handle,
-                                                                    const FInstancedStruct& Extra);
+    static void SetEffectContextHandleExtra(FGameplayEffectContextHandle& Handle,
+                                            const FInstancedStruct& Extra);
 
     UFUNCTION(BlueprintPure, Category="Gengar Ability")
     static FGameplayAbilitySpecHandle GetAbilitySpecHandleByClass(const UAbilitySystemComponent* AbilitySystemComponent,

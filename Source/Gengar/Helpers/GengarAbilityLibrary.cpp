@@ -38,21 +38,19 @@ FInstancedStruct UGengarAbilityLibrary::TryGetEffectContextHandleExtra(const FGa
     return {};
 }
 
-FGameplayEffectContextHandle UGengarAbilityLibrary::SetEffectContextHandleExtra(FGameplayEffectContextHandle& Handle,
-    const FInstancedStruct& Extra)
+void UGengarAbilityLibrary::SetEffectContextHandleExtra(FGameplayEffectContextHandle& Handle,
+                                                        const FInstancedStruct& Extra)
 {
     auto* Context = Handle.Get();
     if (auto* GengarContext = static_cast<FGengarGameplayEffectContext*>(Context))
     {
         GengarContext->Extra = Extra;
     }
-    return Handle;
 }
 
 FGameplayAbilitySpecHandle UGengarAbilityLibrary::GetAbilitySpecHandleByClass(
     const UAbilitySystemComponent* AbilitySystemComponent,
-    const TSubclassOf<UGameplayAbility>&
-    AbilityClass)
+    const TSubclassOf<UGameplayAbility>& AbilityClass)
 {
     for (auto&& Spec : AbilitySystemComponent->GetActivatableAbilities())
     {
@@ -76,7 +74,10 @@ bool UGengarAbilityLibrary::ActivateAbilityWithGameplayEvent(UAbilitySystemCompo
     }
 
     return AbilitySystemComponent->TriggerAbilityFromGameplayEvent(
-        Handle, AbilitySystemComponent->AbilityActorInfo.Get(), Tag, &EventData,
+        Handle,
+        AbilitySystemComponent->AbilityActorInfo.Get(),
+        Tag,
+        &EventData,
         *AbilitySystemComponent);
 }
 
@@ -86,6 +87,7 @@ bool UGengarAbilityLibrary::ActivateAbilityByClassWithGameplayEvent(UAbilitySyst
                                                                     const FGameplayEventData& EventData)
 {
     return ActivateAbilityWithGameplayEvent(AbilitySystemComponent,
-                                            GetAbilitySpecHandleByClass(AbilitySystemComponent, AbilityClass), Tag,
+                                            GetAbilitySpecHandleByClass(AbilitySystemComponent, AbilityClass),
+                                            Tag,
                                             EventData);
 }
