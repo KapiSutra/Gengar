@@ -43,6 +43,7 @@ public class Gengar : ModuleRules
                 "Slate",
                 "SlateCore",
                 "GameplayAbilities",
+                "GameplayTags"
                 // ... add private dependencies that you statically link with here ...	
             }
         );

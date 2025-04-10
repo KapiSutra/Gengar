@@ -2,13 +2,15 @@
 
 
 #include "GengarAbilitySystemGlobals.h"
+#include "Gengar/ActorInfo/GengarGameplayAbilityActorInfo.h"
+#include "Gengar/Effect/GengarGameplayEffectContext.h"
 
 FGameplayAbilityActorInfo* UGengarAbilitySystemGlobals::AllocAbilityActorInfo() const
 {
-    return Super::AllocAbilityActorInfo();
+    return new FGengarGameplayAbilityActorInfo();
 }
 
 FGameplayEffectContext* UGengarAbilitySystemGlobals::AllocGameplayEffectContext() const
 {
-    return Super::AllocGameplayEffectContext();
+    return new FGengarGameplayEffectContext();
 }
