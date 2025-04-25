@@ -18,6 +18,9 @@ class GENGAR_API UGengarAbilityLibrary : public UBlueprintFunctionLibrary
 {
     GENERATED_BODY()
 
+    UFUNCTION(BlueprintCallable, Category="Gengar Ability")
+    static void InitAbilityActorInfo(UAbilitySystemComponent* AbilitySystemComponent, AActor* Owner, AActor* Avatar);
+
     UFUNCTION(BlueprintCallable, Category="Gengar Ability", meta=(ExpandBoolAsExecs="Valid"))
     static void GetGameplayEffectContext(const FGameplayEffectContextHandle& ContextHandle,
                                          FGengarGameplayEffectContext& Context,

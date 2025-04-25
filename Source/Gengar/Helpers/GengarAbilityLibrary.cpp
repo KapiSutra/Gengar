@@ -5,6 +5,12 @@
 
 #include "AbilitySystemComponent.h"
 
+void UGengarAbilityLibrary::InitAbilityActorInfo(UAbilitySystemComponent* AbilitySystemComponent, AActor* Owner,
+                                                 AActor* Avatar)
+{
+    AbilitySystemComponent->InitAbilityActorInfo(Owner, Avatar);
+}
+
 void UGengarAbilityLibrary::GetGameplayEffectContext(const FGameplayEffectContextHandle& ContextHandle,
                                                      FGengarGameplayEffectContext& Context,
                                                      bool& Valid)
