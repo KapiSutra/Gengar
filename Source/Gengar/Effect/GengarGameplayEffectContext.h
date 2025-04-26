@@ -16,7 +16,7 @@ struct GENGAR_API FGengarGameplayEffectContext : public FGameplayEffectContext
     GENERATED_BODY()
 
     UPROPERTY(BlueprintReadWrite)
-    FInstancedStruct Extra;
+    FInstancedStruct Payload;
 
     virtual UScriptStruct* GetScriptStruct() const override
     {
@@ -27,13 +27,13 @@ struct GENGAR_API FGengarGameplayEffectContext : public FGameplayEffectContext
     {
         FGengarGameplayEffectContext* Context = new FGengarGameplayEffectContext();
         *Context = *this;
-        Context->Extra = Extra;
+        Context->Payload = Payload;
         return Context;
     };
 
     virtual bool NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess) override
     {
-        return Super::NetSerialize(Ar, Map, bOutSuccess) && Extra.NetSerialize(Ar, Map, bOutSuccess);
+        return Super::NetSerialize(Ar, Map, bOutSuccess) && Payload.NetSerialize(Ar, Map, bOutSuccess);
     };
 };
 

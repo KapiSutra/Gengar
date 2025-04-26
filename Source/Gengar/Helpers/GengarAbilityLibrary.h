@@ -10,6 +10,9 @@
 
 struct FGameplayAbilitySpecHandle;
 struct FGameplayEventData;
+
+DECLARE_DYNAMIC_DELEGATE(FGengarAbilityEndedCallback);
+
 /**
  * 
  */
@@ -18,6 +21,7 @@ class GENGAR_API UGengarAbilityLibrary : public UBlueprintFunctionLibrary
 {
     GENERATED_BODY()
 
+public:
     UFUNCTION(BlueprintCallable, Category="Gengar Ability")
     static void InitAbilityActorInfo(UAbilitySystemComponent* AbilitySystemComponent, AActor* Owner, AActor* Avatar);
 
@@ -28,28 +32,36 @@ class GENGAR_API UGengarAbilityLibrary : public UBlueprintFunctionLibrary
 
     UFUNCTION(BlueprintCallable, Category="Gengar Ability")
     static void MakeEffectContextHandle(UAbilitySystemComponent* AbilitySystemComponent,
-                                        const FInstancedStruct& Extra,
+                                        const FInstancedStruct& Payload,
                                         FGameplayEffectContextHandle& Handle);
 
     UFUNCTION(BlueprintPure, Category="Gengar Ability")
-    static FInstancedStruct TryGetEffectContextHandleExtra(const FGameplayEffectContextHandle& Handle);
+    static FInstancedStruct TryGetEffectContextPayload(const FGameplayEffectContextHandle& Handle);
+
+    UFUNCTION(BlueprintPure, Category="Gengar Ability", meta=(DefaultToSelf="Ability"))
+    static void GetAbilityContextPayload(const UGameplayAbility* Ability, FInstancedStruct& Payload);
 
     UFUNCTION(BlueprintCallable, Category="Gengar Ability")
-    static void SetEffectContextHandleExtra(FGameplayEffectContextHandle& Handle,
-                                            const FInstancedStruct& Extra);
+    static void SetEffectContextPayload(FGameplayEffectContextHandle& Handle,
+                                        const FInstancedStruct& Payload);
 
     UFUNCTION(BlueprintPure, Category="Gengar Ability")
     static FGameplayAbilitySpecHandle GetAbilitySpecHandleByClass(const UAbilitySystemComponent* AbilitySystemComponent,
                                                                   const TSubclassOf<UGameplayAbility>& AbilityClass);
 
-    UFUNCTION(BlueprintCallable, Category="Gengar Ability", meta=(AutoCreateRefTerm="EventData"))
+    UFUNCTION(BlueprintCallable, Category="Gengar Ability", meta=(AutoCreateRefTerm="EventData", CPP_Default_OnEnded))
     static bool ActivateAbilityWithGameplayEvent(UAbilitySystemComponent* AbilitySystemComponent,
                                                  const FGameplayAbilitySpecHandle& Handle, const FGameplayTag Tag,
-                                                 const FGameplayEventData& EventData);
+                                                 const FGameplayEventData& EventData,
+                                                 UGameplayAbility*& AbilityInstance,
+                                                 FGengarAbilityEndedCallback OnEnded = FGengarAbilityEndedCallback());
 
-    UFUNCTION(BlueprintCallable, Category="Gengar Ability", meta=(AutoCreateRefTerm="EventData"))
+    UFUNCTION(BlueprintCallable, Category="Gengar Ability", meta=(AutoCreateRefTerm="EventData", CPP_Default_OnEnded))
     static bool ActivateAbilityByClassWithGameplayEvent(UAbilitySystemComponent* AbilitySystemComponent,
                                                         TSubclassOf<UGameplayAbility> AbilityClass,
                                                         const FGameplayTag Tag,
-                                                        const FGameplayEventData& EventData);
+                                                        const FGameplayEventData& EventData,
+                                                        UGameplayAbility*& AbilityInstance,
+                                                        FGengarAbilityEndedCallback OnEnded =
+                                                            FGengarAbilityEndedCallback());
 };
