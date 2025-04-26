@@ -22,11 +22,11 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Context")
     TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    FInstancedStruct ContextPayload;
-
     UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowAbstract = false))
     TSubclassOf<UGameplayAbility> Ability;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    FInstancedStruct ContextPayload;
 
     virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context,
                                            const FStateTreeTransitionResult& Transition) override;
