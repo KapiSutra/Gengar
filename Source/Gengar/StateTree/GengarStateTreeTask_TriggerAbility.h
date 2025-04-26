@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/StateTreeTaskBlueprintBase.h"
+#include "Gengar/Helpers/GengarAbilityLibrary.h"
 
 #include "GengarStateTreeTask_TriggerAbility.generated.h"
 
+class UAbilitySystemComponent;
 class UGameplayAbility;
 /**
  * 
@@ -17,6 +19,9 @@ class GENGAR_API UGengarStateTreeTask_TriggerAbility : public UStateTreeTaskBlue
     GENERATED_BODY()
 
 public:
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Context")
+    TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     FInstancedStruct ContextPayload;
 
@@ -25,4 +30,8 @@ public:
 
     virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context,
                                            const FStateTreeTransitionResult& Transition) override;
+
+protected:
+    UFUNCTION()
+    void HandleAbilityEnded();
 };
