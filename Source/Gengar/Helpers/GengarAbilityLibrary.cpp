@@ -70,7 +70,7 @@ void UGengarAbilityLibrary::SetEffectContextPayload(FGameplayEffectContextHandle
     }
 }
 
-FGameplayAbilitySpecHandle UGengarAbilityLibrary::GetAbilitySpecHandleByClass(
+FGameplayAbilitySpecHandle UGengarAbilityLibrary::FindAbilitySpecHandleByClass(
     const UAbilitySystemComponent* AbilitySystemComponent,
     const TSubclassOf<UGameplayAbility>& AbilityClass)
 {
@@ -85,7 +85,7 @@ FGameplayAbilitySpecHandle UGengarAbilityLibrary::GetAbilitySpecHandleByClass(
     return FGameplayAbilitySpecHandle();
 }
 
-bool UGengarAbilityLibrary::ActivateAbilityWithGameplayEvent(UAbilitySystemComponent* AbilitySystemComponent,
+bool UGengarAbilityLibrary::ActivateAbilityWithEventData(UAbilitySystemComponent* AbilitySystemComponent,
                                                              const FGameplayAbilitySpecHandle& Handle,
                                                              const FGameplayTag Tag,
                                                              const FGameplayEventData& EventData,
@@ -116,16 +116,15 @@ bool UGengarAbilityLibrary::ActivateAbilityWithGameplayEvent(UAbilitySystemCompo
         &Delegate, &EventData);
 }
 
-bool UGengarAbilityLibrary::ActivateAbilityByClassWithGameplayEvent(UAbilitySystemComponent* AbilitySystemComponent,
+bool UGengarAbilityLibrary::ActivateAbilityByClassWithEventData(UAbilitySystemComponent* AbilitySystemComponent,
                                                                     const TSubclassOf<UGameplayAbility> AbilityClass,
                                                                     const FGameplayTag Tag,
                                                                     const FGameplayEventData& EventData,
                                                                     UGameplayAbility*& AbilityInstance,
                                                                     const FGengarAbilityEndedCallback OnEnded)
 {
-    UGameplayAbility* OutInstance;
-    return ActivateAbilityWithGameplayEvent(AbilitySystemComponent,
-                                            GetAbilitySpecHandleByClass(AbilitySystemComponent, AbilityClass),
+    return ActivateAbilityWithEventData(AbilitySystemComponent,
+                                            FindAbilitySpecHandleByClass(AbilitySystemComponent, AbilityClass),
                                             Tag,
-                                            EventData, OutInstance, OnEnded);
+                                            EventData, AbilityInstance, OnEnded);
 }

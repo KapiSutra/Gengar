@@ -19,7 +19,7 @@ EStateTreeRunStatus UGengarStateTreeTask_TriggerAbility::EnterState(FStateTreeEx
     FGengarAbilityEndedCallback AbilityEndedCallback{};
     AbilityEndedCallback.BindDynamic(this, &ThisClass::HandleAbilityEnded);
 
-    const auto bSuccess = UGengarAbilityLibrary::ActivateAbilityByClassWithGameplayEvent(
+    const auto bSuccess = UGengarAbilityLibrary::ActivateAbilityByClassWithEventData(
         AbilitySystemComponent, Ability,
         FGameplayTag::EmptyTag, EventData,
         OutAbilityInstance, AbilityEndedCallback);

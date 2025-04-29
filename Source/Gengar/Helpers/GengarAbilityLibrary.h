@@ -46,18 +46,18 @@ public:
                                         const FInstancedStruct& Payload);
 
     UFUNCTION(BlueprintPure, Category="Gengar Ability")
-    static FGameplayAbilitySpecHandle GetAbilitySpecHandleByClass(const UAbilitySystemComponent* AbilitySystemComponent,
+    static FGameplayAbilitySpecHandle FindAbilitySpecHandleByClass(const UAbilitySystemComponent* AbilitySystemComponent,
                                                                   const TSubclassOf<UGameplayAbility>& AbilityClass);
 
     UFUNCTION(BlueprintCallable, Category="Gengar Ability", meta=(AutoCreateRefTerm="EventData", CPP_Default_OnEnded))
-    static bool ActivateAbilityWithGameplayEvent(UAbilitySystemComponent* AbilitySystemComponent,
+    static bool ActivateAbilityWithEventData(UAbilitySystemComponent* AbilitySystemComponent,
                                                  const FGameplayAbilitySpecHandle& Handle, const FGameplayTag Tag,
                                                  const FGameplayEventData& EventData,
                                                  UGameplayAbility*& AbilityInstance,
                                                  FGengarAbilityEndedCallback OnEnded = FGengarAbilityEndedCallback());
 
     UFUNCTION(BlueprintCallable, Category="Gengar Ability", meta=(AutoCreateRefTerm="EventData", CPP_Default_OnEnded))
-    static bool ActivateAbilityByClassWithGameplayEvent(UAbilitySystemComponent* AbilitySystemComponent,
+    static bool ActivateAbilityByClassWithEventData(UAbilitySystemComponent* AbilitySystemComponent,
                                                         TSubclassOf<UGameplayAbility> AbilityClass,
                                                         const FGameplayTag Tag,
                                                         const FGameplayEventData& EventData,
