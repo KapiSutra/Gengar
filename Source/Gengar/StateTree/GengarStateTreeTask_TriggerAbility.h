@@ -10,6 +10,7 @@
 
 class UAbilitySystemComponent;
 class UGameplayAbility;
+
 /**
  * 
  */
@@ -28,8 +29,13 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     FInstancedStruct ContextPayload;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Output)
+    bool bEnded = false;
+
     virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context,
                                            const FStateTreeTransitionResult& Transition) override;
+
+    virtual void ExitState(FStateTreeExecutionContext& Context, const FStateTreeTransitionResult& Transition) override;
 
 protected:
     UFUNCTION()

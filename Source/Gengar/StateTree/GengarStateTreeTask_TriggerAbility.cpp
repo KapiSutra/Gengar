@@ -3,6 +3,7 @@
 
 #include "GengarStateTreeTask_TriggerAbility.h"
 
+#include "StateTreeExecutionContext.h"
 #include "Gengar/Helpers/GengarAbilityLibrary.h"
 
 EStateTreeRunStatus UGengarStateTreeTask_TriggerAbility::EnterState(FStateTreeExecutionContext& Context,
@@ -25,13 +26,21 @@ EStateTreeRunStatus UGengarStateTreeTask_TriggerAbility::EnterState(FStateTreeEx
 
     if (!bSuccess)
     {
+        bEnded = true;
         FinishTask();
     }
 
     return Result;
 }
 
+void UGengarStateTreeTask_TriggerAbility::ExitState(FStateTreeExecutionContext& Context,
+                                                    const FStateTreeTransitionResult& Transition)
+{
+    Super::ExitState(Context, Transition);
+}
+
 void UGengarStateTreeTask_TriggerAbility::HandleAbilityEnded()
 {
+    bEnded = true;
     FinishTask();
 }
