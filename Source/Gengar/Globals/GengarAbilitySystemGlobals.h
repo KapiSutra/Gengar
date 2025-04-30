@@ -14,4 +14,5 @@ class GENGAR_API UGengarAbilitySystemGlobals : public UAbilitySystemGlobals
 
     virtual FGameplayAbilityActorInfo* AllocAbilityActorInfo() const override;
     virtual FGameplayEffectContext* AllocGameplayEffectContext() const override;
+    virtual void InitGlobalData() override;
 };

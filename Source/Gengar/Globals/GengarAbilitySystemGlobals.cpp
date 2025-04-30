@@ -14,3 +14,8 @@ FGameplayEffectContext* UGengarAbilitySystemGlobals::AllocGameplayEffectContext(
 {
     return new FGengarGameplayEffectContext();
 }
+
+void UGengarAbilitySystemGlobals::InitGlobalData()
+{
+    Super::InitGlobalData();
+}
