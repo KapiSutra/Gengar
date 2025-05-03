@@ -6,9 +6,19 @@
 #include "AbilitySystemComponent.h"
 
 void UGengarAbilityLibrary::InitAbilityActorInfo(UAbilitySystemComponent* AbilitySystemComponent, AActor* Owner,
-                                                 AActor* Avatar)
+                                                 AActor* Avatar, APlayerController* PlayerController)
 {
     AbilitySystemComponent->InitAbilityActorInfo(Owner, Avatar);
+
+    if (PlayerController)
+    {
+        const auto OldPc = AbilitySystemComponent->AbilityActorInfo->PlayerController;
+        if (OldPc.Get() != PlayerController)
+        {
+            AbilitySystemComponent->AbilityActorInfo->PlayerController = PlayerController;
+            AbilitySystemComponent->OnPlayerControllerSet();
+        }
+    }
 }
 
 void UGengarAbilityLibrary::GetGameplayEffectContext(const FGameplayEffectContextHandle& ContextHandle,
@@ -86,11 +96,11 @@ FGameplayAbilitySpecHandle UGengarAbilityLibrary::FindAbilitySpecHandleByClass(
 }
 
 bool UGengarAbilityLibrary::ActivateAbilityWithEventData(UAbilitySystemComponent* AbilitySystemComponent,
-                                                             const FGameplayAbilitySpecHandle& Handle,
-                                                             const FGameplayTag Tag,
-                                                             const FGameplayEventData& EventData,
-                                                             UGameplayAbility*& AbilityInstance,
-                                                             FGengarAbilityEndedCallback OnEnded)
+                                                         const FGameplayAbilitySpecHandle& Handle,
+                                                         const FGameplayTag Tag,
+                                                         const FGameplayEventData& EventData,
+                                                         UGameplayAbility*& AbilityInstance,
+                                                         FGengarAbilityEndedCallback OnEnded)
 {
     if (!ensure(AbilitySystemComponent))
     {
@@ -117,14 +127,14 @@ bool UGengarAbilityLibrary::ActivateAbilityWithEventData(UAbilitySystemComponent
 }
 
 bool UGengarAbilityLibrary::ActivateAbilityByClassWithEventData(UAbilitySystemComponent* AbilitySystemComponent,
-                                                                    const TSubclassOf<UGameplayAbility> AbilityClass,
-                                                                    const FGameplayTag Tag,
-                                                                    const FGameplayEventData& EventData,
-                                                                    UGameplayAbility*& AbilityInstance,
-                                                                    const FGengarAbilityEndedCallback OnEnded)
+                                                                const TSubclassOf<UGameplayAbility> AbilityClass,
+                                                                const FGameplayTag Tag,
+                                                                const FGameplayEventData& EventData,
+                                                                UGameplayAbility*& AbilityInstance,
+                                                                const FGengarAbilityEndedCallback OnEnded)
 {
     return ActivateAbilityWithEventData(AbilitySystemComponent,
-                                            FindAbilitySpecHandleByClass(AbilitySystemComponent, AbilityClass),
-                                            Tag,
-                                            EventData, AbilityInstance, OnEnded);
+                                        FindAbilitySpecHandleByClass(AbilitySystemComponent, AbilityClass),
+                                        Tag,
+                                        EventData, AbilityInstance, OnEnded);
 }
