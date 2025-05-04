@@ -22,7 +22,7 @@ class GENGAR_API UGengarAbilityLibrary : public UBlueprintFunctionLibrary
     GENERATED_BODY()
 
 public:
-    UFUNCTION(BlueprintCallable, Category="Gengar Ability")
+    UFUNCTION(BlueprintCallable, Category="Gengar Ability", BlueprintAuthorityOnly)
     static void InitAbilityActorInfo(UAbilitySystemComponent* AbilitySystemComponent, AActor* Owner, AActor* Avatar,
                                      APlayerController* PlayerController);
 
