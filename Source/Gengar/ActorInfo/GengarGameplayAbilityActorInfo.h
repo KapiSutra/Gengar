@@ -28,6 +28,11 @@ struct GENGAR_API FGengarGameplayAbilityActorInfo : public FGameplayAbilityActor
         {
             SkeletalMeshComponent = IGengarAbilityAvatarInterface::Execute_AvatarMeshComponent(AvatarActor.Get());
         }
+
+        if (SkeletalMeshComponent.IsValid())
+        {
+            AnimInstance = SkeletalMeshComponent->GetAnimInstance();
+        }
     }
 
     virtual void SetAvatarActor(AActor* InAvatarActor) override
