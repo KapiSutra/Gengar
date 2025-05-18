@@ -26,7 +26,7 @@ EStateTreeRunStatus UGengarStateTreeTask_TriggerAbility::EnterState(FStateTreeEx
 
     if (!bSuccess)
     {
-        bEnded = true;
+        bAbilityEnded = true;
         FinishTask();
     }
 
@@ -41,6 +41,6 @@ void UGengarStateTreeTask_TriggerAbility::ExitState(FStateTreeExecutionContext& 
 
 void UGengarStateTreeTask_TriggerAbility::HandleAbilityEnded()
 {
-    bEnded = true;
+    bAbilityEnded = true;
     FinishTask();
 }

@@ -30,7 +30,7 @@ public:
     FInstancedStruct ContextPayload;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Output)
-    bool bEnded = false;
+    bool bAbilityEnded = false;
 
     virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context,
                                            const FStateTreeTransitionResult& Transition) override;
