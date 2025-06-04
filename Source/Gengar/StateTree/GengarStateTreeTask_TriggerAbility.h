@@ -25,6 +25,7 @@ public:
             ObjectInitializer)
     {
         bShouldCopyBoundPropertiesOnTick = false;
+        bShouldCopyBoundPropertiesOnExitState = false;
     }
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Context")
