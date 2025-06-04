@@ -14,12 +14,19 @@ class UGameplayAbility;
 /**
  * 
  */
-UCLASS(DisplayName = "Trigger Ability (Gengar)")
+UCLASS(DisplayName = "Trigger Ability Once (Gengar)")
 class GENGAR_API UGengarStateTreeTask_TriggerAbility : public UStateTreeTaskBlueprintBase
 {
     GENERATED_BODY()
 
 public:
+    explicit UGengarStateTreeTask_TriggerAbility(const FObjectInitializer& ObjectInitializer):
+        UStateTreeTaskBlueprintBase(
+            ObjectInitializer)
+    {
+        bShouldCopyBoundPropertiesOnTick = false;
+    }
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Context")
     TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
@@ -32,12 +39,15 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Output)
     bool bAbilityEnded = false;
 
+protected:
+    virtual EStateTreeRunStatus Tick(FStateTreeExecutionContext& Context, const float DeltaTime) override;
     virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context,
                                            const FStateTreeTransitionResult& Transition) override;
-
     virtual void ExitState(FStateTreeExecutionContext& Context, const FStateTreeTransitionResult& Transition) override;
 
-protected:
+    //
     UFUNCTION()
     void HandleAbilityEnded();
+    UPROPERTY()
+    FGengarAbilityEndedCallback Callback;
 };

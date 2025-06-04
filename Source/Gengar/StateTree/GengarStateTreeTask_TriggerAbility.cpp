@@ -16,13 +16,12 @@ EStateTreeRunStatus UGengarStateTreeTask_TriggerAbility::EnterState(FStateTreeEx
 
     UGameplayAbility* OutAbilityInstance;
 
-    FGengarAbilityEndedCallback AbilityEndedCallback{};
-    AbilityEndedCallback.BindDynamic(this, &ThisClass::HandleAbilityEnded);
+    this->Callback.BindDynamic(this, &ThisClass::HandleAbilityEnded);
 
     const auto bSuccess = UGengarAbilityLibrary::ActivateAbilityByClassWithEventData(
         AbilitySystemComponent, Ability,
         FGameplayTag::EmptyTag, EventData,
-        OutAbilityInstance, AbilityEndedCallback);
+        OutAbilityInstance, Callback);
 
     if (!bSuccess)
     {
@@ -43,4 +42,10 @@ void UGengarStateTreeTask_TriggerAbility::HandleAbilityEnded()
 {
     bAbilityEnded = true;
     FinishTask();
+}
+
+EStateTreeRunStatus UGengarStateTreeTask_TriggerAbility::Tick(FStateTreeExecutionContext& Context,
+    const float DeltaTime)
+{
+    return Super::Tick(Context, DeltaTime);
 }
